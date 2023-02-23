@@ -14,13 +14,14 @@ const RandomChar = () => {
     updateChar();
   }, []);
 
-  const { loading, error, getCharacter } = useMarvelService(); // создали новый экземпляр класса
+  const { loading, error, getCharacter, clearError } = useMarvelService(); // создали новый экземпляр класса
 
   const onCharLoaded = (char) => {
     setChar(char);
   };
 
   const updateChar = () => {
+    clearError();
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); // Рандомное число в промежутке. По сути от 1011000 до 1011400 - это 400 id. Получаем рандомное число, умножаем на длину промежутка (разница максимального id и минимального). Итого получаем случайное число умноженное на 0 или на 400. Но нам нужно чтобы минимум был 1011000. Поэтому тупо прибавляем к результату.
     getCharacter(id).then(onCharLoaded);
   };
